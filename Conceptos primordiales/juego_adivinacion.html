@@ -1,0 +1,59 @@
+<meta charset="utf-8">
+
+<h1>Programa Calcular IMC</h1>
+
+<script>
+
+	function saltarlinea() {
+		
+		document.write("<br>");
+		document.write("<br>");
+		document.write("<br>");
+
+	}
+
+	function imprimir(frase) {
+
+		document.write(frase);
+		saltarlinea();
+	}
+
+	function sorteo(limite) {
+		let n = Math.round(Math.random()*limite);
+		return (n);
+	}
+
+	const limite = parseInt(prompt("Ingrese el limite de numeros"));
+
+	const numero = sorteo(limite)
+	let intentos = 3;
+	console.log(numero)
+
+	let contador = 1;
+	while (contador <= intentos) {
+
+		let elegido = parseInt(prompt("Eliga un número entre 0 y " + limite));
+		
+		if (elegido == numero) {
+
+			alert("!ACERTADO¡")
+			break;
+
+		}
+
+		if (elegido != numero) {
+
+
+			alert("!FALLO¡")
+
+			if (elegido < numero) {
+				alert("El numero era mayor")
+			}
+			else {
+				alert("El numero era menor")
+			}
+		}
+		contador++;
+	}
+
+</script>
