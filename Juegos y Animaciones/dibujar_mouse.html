@@ -1,0 +1,98 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+    var pantalla = document.querySelector('canvas');
+    var pincel = pantalla.getContext('2d');
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0, 0, 600, 400);
+
+    var puedoDibujar = false;
+    let paletaColores = ["red", "green", "blue"]
+    let colorSelecionado = 2
+
+    function dibujarCirculo(evento) {
+
+        if(puedoDibujar) {
+            var x = evento.pageX - pantalla.offsetLeft;
+            var y = evento.pageY - pantalla.offsetTop;
+            pincel.fillStyle = paletaColores[colorSelecionado];
+            pincel.beginPath();
+            pincel.arc(x, y, 5, 0, 2 * 3.14);
+            pincel.fill();
+        }
+
+    }
+
+    pantalla.onmousemove = dibujarCirculo;
+
+    function habilitarDibujar() {
+
+        puedoDibujar = true;
+    }
+
+    function deshabilitarDibujar() {
+
+        puedoDibujar = false;
+    }
+
+    pantalla.onmousedown = habilitarDibujar;
+
+    pantalla.onmouseup = deshabilitarDibujar;
+
+    function crearColor(x,y, color) {
+
+        pincel.fillStyle = color;
+
+        pincel.fillRect(x,y,50,50)
+        pincel.strokeRect(x,y,50,50)
+
+    }
+
+    function crearPaleta(x,y,colores) {
+
+        
+        
+        for (let i = 0; i < colores.length; i++) {
+
+            crearColor(x,0,colores[i]);
+            x = x + 50
+
+        }
+    }
+
+    crearPaleta(0,0,paletaColores)
+
+    function cambiarColor(event) {
+
+        let x = event.pageX - pantalla.offsetLeft;
+        let y = event.pageY - pantalla.offsetTop;
+
+        console.log(x + ", " + y)
+
+        if (x <= (paletaColores.length * 50) && y <= 50) {
+
+            if (x < 50) {
+
+                colorSelecionado = 0;
+
+            }
+
+            if (x > 50 && x < 100) {
+
+                colorSelecionado = 1;
+
+            }
+
+            if (x > 100 && x < 150) {
+
+                colorSelecionado = 2
+
+            }
+
+        }
+    }
+
+    pantalla.addEventListener("click",cambiarColor);
+
+</script>
